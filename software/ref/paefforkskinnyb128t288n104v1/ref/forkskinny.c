@@ -101,6 +101,11 @@ void forkEncrypt(unsigned char* C0, unsigned char* C1, unsigned char* input, con
     if (s == ENC_BOTH)
         stateCopy(state, L);
 
+    /* Advance the key schedule for C0 */
+    if (s == ENC_C0)
+        for(i = 0; i < CRYPTO_NBROUNDS_AFTER; i++)
+            advanceKeySchedule(keyCells);
+
     /* Left branch (C0) */
     if ((s == ENC_C0) | (s == ENC_BOTH)){
 
